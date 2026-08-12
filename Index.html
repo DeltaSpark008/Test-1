@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himank Version 2 - Dashboard</title>
+    <!-- Chart.js for real-time tracking graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for clean, interactive icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        
+        <!-- HEADER PROFILE SECTION -->
+        <header class="profile-card">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <h1>Himank <span class="version-tag">v2.0</span></h1>
+                    <p class="age-countdown" id="ageCountdown">Age: 16 (Turning 17 on Aug 16)</p>
+                </div>
+                <div class="theme-toggles">
+                    <button id="voidEchoToggle" class="btn-icon" title="Void Echo Theme"><i class="fa-solid fa-guitar"></i></button>
+                    <button id="fogModeToggle" class="btn-icon" title="Brain Fog / Night Mode"><i class="fa-solid fa-moon"></i></button>
+                </div>
+            </div>
+            
+            <!-- GLOBAL THROTTLE SWITCHES -->
+            <div class="throttle-container">
+                <label class="switch-label text-warning">
+                    <input type="checkbox" id="headacheThrottle">
+                    <span class="slider"></span>
+                    <i class="fa-solid fa-triangle-exclamation"></i> Head Vein Pulse / Headache Present
+                </label>
+                <button id="emergencyBtn" class="btn-emergency"><i class="fa-solid fa-shield-halved"></i> Emergency Mode</button>
+            </div>
+        </header>
+
+        <!-- LIVE SCORE / GAMIFICATION BAR -->
+        <section class="score-card">
+            <div class="xp-header">
+                <span class="xp-title"><i class="fa-solid fa-bolt"></i> Daily System XP</span>
+                <span id="rankText" class="rank-badge">Rank: Loading...</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="xpProgress" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="xp-stats">
+                <span id="xpPoints">0 / 7 Tasks Done</span>
+                <span id="streakDays"><i class="fa-solid fa-fire"></i> Streak: 0 Days</span>
+            </div>
+        </section>
+
+        <!-- METRIC INPUT & GRAPH SYSTEM TAB SELECTOR -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('tracker')"><i class="fa-solid fa-list-check"></i> Schedule</button>
+            <button class="tab-btn" onclick="switchTab('workout')"><i class="fa-solid fa-dumbbell"></i> Workout</button>
+            <button class="tab-btn" onclick="switchTab('analytics')"><i class="fa-solid fa-chart-line"></i> Analytics</button>
+        </nav>
+
+        <main class="tab-content">
+            <!-- TRACKER TAB -->
+            <div id="trackerTab" class="tab-panel active">
+                
+                <!-- PHASE 1: RESET MORNING -->
+                <div class="phase-card" data-phase="1">
+                    <div class="phase-title">
+                        <h3><i class="fa-solid fa-sun text-amber"></i> Phase 1: Reset Morning (9:00 AM)</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Wake Up Drop (No Scrolling + Glass of Water)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Light Activation (5-10m Sun + Cobra + 1m Hang)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Meal 1: Calorie Bomb Liquid Breakfast</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phase-card" data-phase="2">
+                    <div class="phase-title">
+                        <h3><i class="fa-solid fa-utensils text-green"></i> Phase 2: Nourish Mid-Day (1:00 PM - 2:00 PM)</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Meal 2: The Protein Hit (2 Boiled Eggs at 1:00 PM)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Meal 3: Home Lunch with 1.5 tbsp Ghee (2:00 PM)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="phase-card" data-phase="3">
+                    <div class="phase-title">
+                        <h3><i class="fa-solid fa-up-long text-blue"></i> Phase 3: Growth Triggers & Workout (5:00 PM)</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">45 Decompression Jumps + 2nd Dead Hang (5:00 PM)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Nasal-Breathing Home Workout Execution (5:30 PM)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Meal 4: Recovery Calorie Shake (6:30 PM)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="phase-card" data-phase="4">
+                    <div class="phase-title">
+                        <h3><i class="fa-solid fa-comments text-pink"></i> Phase 4: Strategic Evening (7:30 PM)</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Aarohi Connection Block (Early deep talk, stay calm/not needy)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Meal 5: Balanced Home Dinner (9:00 PM)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="phase-card" data-phase="5">
+                    <div class="phase-title">
+                        <h3><i class="fa-solid fa-bed text-purple"></i> Phase 5: HGH Sleep Protocol (11:00 PM)</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text">Screens Away + 3rd Spine Dead Hang (11:00 PM)</span>
+                            </label>
+                    vg6    </li>
+                        <li>
+                            <label class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-xp="1">
+                                <span class="custom-checkbox"></span>
+                                <span class="task-text"y>Supplgements (L-Arginine + D3/K2 on empty stomach)</span>
+                            </label>
+                        </li>
+                    </ul>
+                    
+                    <div class="metronomeg-section">
+                        <button id="startMetronomeBtn" class="btn-secondary"><i class="fa-solid fa-circle-nodes"></i> Start Breathing Metronome</button>
+                        <div class="metronome-wrapper hidden" id="metronomeWrapper">
+                            <div classy="breathing-circle" id="breathCircle"></div>
+                            <p id="breathText" class="breath-status">Ready</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div> ```
+            <!-- WORKOUT TAB -->
+            <div id="workoutTab" class="tab-panel">
+                <div class="workout-selector">
+                    <button id="btnWorkoutA" class="workout-toggle-btn active" onclick="toggleWorkout('A')">Workout A: Push / Legs / Core</button>
+                    <button id="btnWorkoutB" class="workout-toggle-btn" onclick="toggleWorkout('B')">Workout B: Pull / Posture</button>
+                </div>
+
+                <!-- WORKOUT PANEL A -->
+                <div id="panelWorkoutA" class="workout-panel-content">
+                    <div class="exercise-card">
+                        <div class="ex-info">
+                            <h4>Incline Push-ups</h4>
+                            <p>3 Sets &times; 8–12 Reps</p>
+                            <span class="ex-tip">Hands on bed/chair. Builds upper chest & shoulders to widen your frame.</span>
+                        </div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="ex-info">
+                            <h4>Bodyweight Squats</h4>
+                            <p>3 Sets &times; 12–15 Reps</p>
+                            <span class="ex-tip">Go deep but keep it controlled to avoid sudden blood pressure spikes.</span>
+                        </div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="ex-info">
+                            <h4>Plank Hold</h4>
+                            <p>3 Sets &times; 30–45 Seconds</p>
+                            <span class="ex-tip">Keeps core locked. Supports an upright, taller posture.</span>
+                        </div>
+                        <div class="timer-container">
+                            <span id="plankTimerDisplay" class="timer-digits">45s</span>
+                            <button class="btn-timer" onclick="startTimer(45, 'plankTimerDisplay')"><i class="fa-solid fa-play"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WORKOUT PANEL B -->
+                <div id="panelWorkoutB" class="workout-panel-content hidden">
+                    <div class="exercise-card">
+                        <div class="ex-info">
+                            <h4>Doorframe / Towel Rows</h4>
+                            <p>3 Sets &times; 8–12 Reps</p>
+                            <span class="ex-tip">Lean back and pull chest inward to stimulate upper back muscles.</span>
+                        </div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="ex-info">
+                            <h4>Wall Slides</h4>
+                            <p>3 Sets &times; 10–12 Reps</p>
+                            <span class="ex-tip">Back flat against wall, arms at 90°. Fixes slouched shoulders.</span>
+                        </div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="ex-info">
+                            <h4>Bird-Dog</h4>
+                            <p>3 Sets &times; 10 Reps each side</p>
+                            <span class="ex-tip">On all fours, kick opposite arm/leg out. Destroys lower back stiffness.</span>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- END WORKOUT TAB -->
+
+            <!-- ANALYTICS TAB -->
+            <div id="analyticsTab" class="tab-panel">
+              <div class="metric-form-card" style="margin-bottom: 14px;">
+    <h3><i class="fa-solid fa-calculator"></i> Quick Unit Converter</h3>
+    <div class="input-grid">
+        <div class="input-group">
+            <label>Weight (lbs ⇄ kg)</label>
+            <input type="number" id="convWeight" placeholder="Enter value" oninput="convertWeightUnit(this.value)">
+            <span id="weightConvResult" style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 4px;">0 lbs = 0 kg</span>
+        </div>
+        <div class="input-group">
+            <label>Height (cm ⇄ ft/in)</label>
+            <input type="number" id="convHeightCm" placeholder="cm to feet" oninput="convertCmToFeet(this.value)">
+            <span id="heightCmResult" style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 4px;">0 ft</span>
+        </div>
+        <div class="input-group">
+            <label>Height (ft.in ⇄ cm)</label>
+            <input type="number" id="convHeightFt" step="0.01" placeholder="e.g. 5.05 for 5'5&quot;" oninput="convertFeetToCm(this.value)">
+            <span id="heightFtResult" style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 4px;">0 cm</span>
+        </div>
+    </div>
+</div>
+
+                <!-- DAILY INPUT FORM -->
+                <div class="metric-form-card">
+                    <h3><i class="fa-solid fa-pen-to-square"></i> Log Metrics</h3>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="inputHeight">Height (cm)</label>
+                            <input type="number" id="inputHeight" step="0.1" placeholder="e.g. 165.5">
+                        </div>
+                        <div class="input-group">
+                            <label for="inputWeightAM">Weight AM (kg)</label>
+                            <input type="number" id="inputWeightAM" step="0.1" placeholder="9:00 AM">
+                        </div>
+                        <div class="input-group">
+                            <label for="inputWeightPM">Weight PM (kg)</label>
+                            <input type="number" id="inputWeightPM" step="0.1" placeholder="11:00 PM">
+                        </div>
+                    </div>
+                    <button id="saveMetricsBtn" class="btn-primary" onclick="submitDailyMetrics()"><i class="fa-solid fa-cloud-arrow-up"></i> Save Entry</button>
+                </div>
+
+                <!-- HISTORICAL GRAPH CONTAINERS -->
+                <div class="chart-wrapper">
+                    <div class="chart-header">
+                        <h3>Height Tracking (Current Month)</h3>
+                        <button class="btn-sm" onclick="downloadChart('heightChart')"><i class="fa-solid fa-image"></i> PNG</button>
+                    </div>
+                    <canvas id="heightChart"></canvas>
+                </div>
+
+                <div class="chart-wrapper">
+                    <div class="chart-header">
+                        <h3>Weight Tracking (AM vs PM)</h3>
+                        <button class="btn-sm" onclick="downloadChart('weightChart')"><i class="fa-solid fa-image"></i> PNG</button>
+                    </div>
+                    <canvas id="weightChart"></canvas>
+                </div>
+
+                <!-- ARCHIVE & DATA PORTABILITY ACTIONS -->
+                <div class="data-actions-card">
+                    <h3><i class="fa-solid fa-boxes-packing"></i> Data Management</h3>
+                    <div class="archive-select-wrapper">
+                        <label for="archiveMonthSelect">View Archive:</label>
+                        <select id="archiveMonthSelect" onchange="loadArchivedMonth()">
+                            <option value="">-- Current Active Slate --</option>
+                        </select>
+                    </div>
+                    <div class="export-button-group">
+                        <button class="btn-secondary" onclick="exportDataStringToClipboard()"><i class="fa-solid fa-copy"></i> Copy AI Paste-Ready Data</button>
+                    </div>
+                </div>
+            </div> <!-- END ANALYTICS TAB -->
+        </main>
+    </div> <!-- END APP CONTAINER -->
+    <script src="script.js"></script>
+</body>
+</html>

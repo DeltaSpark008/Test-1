@@ -1,0 +1,562 @@
+/* ==========================================================================
+   RESET & SYSTEM VARIABLES
+   ========================================================================== */
+:root {
+    --bg-primary: #121214;
+    --bg-surface: #1a1a1e;
+    --bg-surface-elevated: #26262b;
+    --text-main: #f4f4f6;
+    --text-muted: #9a9a87;
+    
+    /* System Accents */
+    --accent-amber: #ffb020;
+    --accent-green: #14b8a6;
+    --accent-blue: #0ea5e9;
+    --accent-pink: #ec4899;
+    --accent-purple: #a855f7;
+    --border-color: #2e2e35;
+    
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* VOID ECHO THEME MODIFIERS */
+body.void-echo-theme {
+    --bg-primary: #050505;
+    --bg-surface: #0d0d0f;
+    --bg-surface-elevated: #16161a;
+    --text-main: #ffffff;
+    --accent-amber: #e11d48; /* Crimson / High Contrast Red */
+    --accent-green: #e11d48;
+    --accent-blue: #e11d48;
+    --accent-pink: #e11d48;
+    --accent-purple: #e11d48;
+    --border-color: #2a080c;
+}
+
+/* BRAIN FOG / SLEEP PROTOCOL MODIFIERS */
+body.fog-theme {
+    --bg-primary: #0a0705;
+    --bg-surface: #120e0a;
+    --bg-surface-elevated: #1c1510;
+    --text-main: #e6dfd5;
+    --text-muted: #8c7f70;
+    --accent-amber: #d97706; /* Low-intensity warm amber */
+    --accent-green: #d97706;
+    --accent-blue: #d97706;
+    --accent-pink: #d97706;
+    --accent-purple: #d97706;
+    --border-color: #2c2015;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    transition: var(--transition-smooth);
+    padding: 12px;
+    min-height: 100vh;
+}
+
+.app-container {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ==========================================================================
+   CARDS & CONTAINERS
+   ========================================================================== */
+header.profile-card, .score-card, .phase-card, .workout-panel-content, .metric-form-card, .chart-wrapper, .data-actions-card, .exercise-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    transition: var(--transition-smooth);
+}
+
+/* PROFILE HEADER */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.version-tag {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    background-color: var(--bg-surface-elevated);
+    border-radius: 6px;
+    vertical-align: middle;
+    color: var(--text-muted);
+}
+
+.age-countdown {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* SWITCH THROTTLES */
+.throttle-container {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.switch-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   GAMIFICATION & PROGRESS
+   ========================================================================== */
+.xp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+
+.rank-badge {
+    background-color: var(--bg-surface-elevated);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar-container {
+    background-color: var(--bg-surface-elevated);
+    height: 8px;
+    border-radius: 4px;
+    margin: 12px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.xp-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+.tab-navigation {
+    display: flex;
+    background-color: var(--bg-surface);
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: var(--transition-smooth);
+}
+
+.tab-btn.active {
+    background-color: var(--bg-surface-elevated);
+    color: var(--text-main);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tab-panel {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tab-panel.active {
+    display: flex;
+}
+
+/* ==========================================================================
+   TASK TRACKER INTERFACE
+   ========================================================================== */
+.phase-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.phase-title h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--bg-surface-elevated);
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.task-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox {
+    height: 20px;
+    width: 20px;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    display: inline-block;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.task-checkbox:checked ~ .custom-checkbox {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.custom-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--bg-primary);
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.task-checkbox:checked ~ .custom-checkbox:after {
+    display: block;
+}
+
+.task-text {
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.task-checkbox:checked ~ .task-text {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+/* ==========================================================================
+   WORKOUT TRACKING MODES
+   ========================================================================== */
+.workout-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.workout-toggle-btn {
+    flex: 1;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.workout-toggle-btn.active {
+    background-color: var(--accent-blue);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+}
+
+.exercise-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.ex-info h4 {
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.ex-info p {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 4px;
+}
+
+.ex-tip {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: block;
+    line-height: 1.3;
+}
+
+/* TIMERS */
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--bg-primary);
+    padding: 8px;
+    border-radius: 10px;
+    min-width: 65px;
+}
+
+.timer-digits {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   METRICS & GRAPH LAYOUTS
+   ========================================================================== */
+.metric-form-card h3, .chart-wrapper h3, .data-actions-card h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.input-group input {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.archive-select-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: 0.85rem;
+}
+
+select {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   BUTTONS & UTILITIES
+   ========================================================================== */
+button {
+    font-family: inherit;
+}
+
+.btn-icon {
+    background-color: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+}
+
+.btn-primary, .btn-secondary, .btn-emergency, .btn-timer, .btn-sm {
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background-color: var(--accent-green);
+    color: var(--bg-primary);
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.btn-secondary {
+    background-color: var(--bg-surface-elevated);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+}
+
+.btn-emergency {
+    background-color: rgba(225, 29, 72, 0.15);
+    color: #f43f5e;
+    border: 1px solid rgba(225, 29, 72, 0.3);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+}
+
+.btn-timer {
+    background-color: var(--bg-surface-elevated);
+    color: var(--accent-blue);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.btn-sm {
+    background-color: var(--bg-surface-elevated);
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    border: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   BREATH METRONOME SPECIFICS
+   ========================================================================== */
+.metronome-section {
+    margin-top: 10px;
+}
+
+.metronome-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    padding: 16px;
+    background-color: var(--bg-primary);
+    border-radius: 12px;
+}
+
+.breathing-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--accent-purple);
+    opacity: 0.7;
+    transition: transform 4s ease-in-out;
+}
+
+.breathing-circle.expand {
+    transform: scale(2.2);
+}
+
+.breath-status {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* GLOBAL HELPERS */
+.hidden { display: none !important; }
+.text-amber { color: var(--accent-amber); }
+.text-green { color: var(--accent-green); }
+.text-blue { color: var(--accent-blue); }
+.text-pink { color: var(--accent-pink); }
+.text-purple { color: var(--accent-purple); }
+.text-warning { color: #f59e0b; }
